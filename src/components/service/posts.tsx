@@ -1,35 +1,31 @@
+import { Service } from 'contentlayer/generated'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+interface PostsProps {
+  services: Service[]
+}
 
-export function Posts() {
-  const posts = new Array(6).fill(8).map((_, i) => i)
-
+export function Posts({ services }: PostsProps) {
   return (
     <div className="my-32 grid grid-cols-3 gap-y-10">
-      {posts.map((post) => (
-        <div key={post}>
+      {services.map((post) => (
+        <div key={post._id}>
           <div>
             <Image
               priority={false}
-              className="rounded-2xl"
-              src="/post-example.png"
+              className="h-[200px] w-[300px] rounded-2xl object-fill"
+              src={post.serviceImage}
               width={300}
-              height={300}
+              height={200}
               alt=""
             />
           </div>
           <div className="mt-1 flex max-w-[300px] flex-col gap-1.5">
-            <strong>
-              Beyond transaction: Unlocking the Full Potential of Your POS
-              Sys...
-            </strong>
-            <p className="text-xs text-slate-600">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
-              ratione quae, laborum est tempore fugiat praesentium delectus odio
-            </p>
+            <strong>{post.title}</strong>
+            <p className="text-xs text-slate-600">{post.subTitle}</p>
             <Link
-              href="/service/123"
+              href={`/service/${post.slug}`}
               className="flex items-center gap-2 text-sm font-semibold text-[#2D4B81]"
             >
               Leia mais <ArrowRight />
